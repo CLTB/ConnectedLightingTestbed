@@ -1,0 +1,33 @@
+/*input panel*/
+/*input-general*/
+.input{
+	background-color:#6e9db8; /*Medium Color*/
+	width:25%;
+	min-width:50px;
+	overflow:hidden;
+}
+
+.input button,.input submit,.input select{
+	background-color: #0073b7; /*Dark Color*/
+}
+
+.input .fa{font-size:14px;}
+.input .channel_timestamp{margin-left:5px;}
+.input .timestampinput{margin-left:3px;}
+
+#btn_rcdinput{margin-left:10px;}
+
+/*input-add a module*/
+.input .div_moduleChoice>select{
+	background:#0073b7 url("../images/arrowdown.gif") no-repeat 98% 50%;}/*Dark Color*/
+
+.input .ul_module_choice{background-color:#99c2da;}/*light Color*/
+
+#ul_NYCTraffic_station{background:#6e9db8;height:100px;width:80%;max-width:550px;overflow:scroll; list-style-type: none;margin-bottom:10px;}
+#ul_NYCTraffic_station li{padding-left:10px;background:#6e9db8;border:none;white-space:nowrap;}
+
+#ul_NYCTraffic_station .ui-selecting{background:#99c2da;}
+#ul_NYCTraffic_station .ui-selected{background:#0073b7;}
+
+/*input-channel list*/
+#input_channels .loaded_channel{background-color:#0073b7;}/*Dark Color*/

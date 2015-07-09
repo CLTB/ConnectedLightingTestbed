@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Access-Control-Allow-Origin" content="*"/>
+<title>Solid State Lighting Testbed</title>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="script/knockout.js"></script>
+<script type="text/javascript" src="script/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="style/normalize.css"/>
+<link rel="stylesheet" type="text/css" href="style/jquery-ui.min.css"/>
+<link rel="stylesheet" type="text/css" href="style/font-awesome/css/font-awesome.min.css">
+<link href='http://fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" type="text/css" href="style/sweetalert.css">
+<link rel="stylesheet" type="text/css" href="style/main.css"/>
+<link rel="stylesheet" type="text/css" href="style/inputs.css"/>
+<link rel="stylesheet" type="text/css" href="style/outputs.css"/>
+<link rel="stylesheet" type="text/css" href="style/algorithms.css"/>
+
+<!--<script type="text/javascript" src="script/jquery-ui.min.js"></script>-->
+
+<script type="text/javascript" src="script/jquery.iphonepicker.min.js"></script>
+<!--<script type="text/javascript" src="script/opencpu-0.4.js"></script>-->
+<script type="text/javascript" src="script/papaparse.js"></script>
+<script type="text/javascript" src="script/sweetalert.min.js"></script>
+<script type="text/javascript" src="script/main.js"></script>
+<script type="text/javascript" src="script/PutHTML.js"></script>
+<script type="text/javascript" src="script/CrlByCSV.js"></script>
+<script type="text/javascript" src="script/CrlByTime.js"></script>
+<script type="text/javascript" src="script/CrlByWheel.js"></script>
+<script type="text/javascript" src="script/CrlByNYCTraffic.js"></script>
+<script type="text/javascript" src="script/inputs.js"></script>
+<script type="text/javascript" src="script/algorithms.js"></script>
+<script type="text/javascript" src="script/outputs.js"></script>
+<script type="text/javascript" src="script/execute.js"></script>
+
+
+
+</head>
+
+<body>
+<div id="header">
+	<div>PNNL Connected Lighting System Testbed</div>
+	<span class="fa fa-floppy-o save_settings" title="save your current settings"></span>
+	<span class="fa fa-download load_settings" title="load your saved settings"></span>
+	<img src="images/pnnl_logo.png">
+</div>
+
+<div class="left input panel inactive">
+	<div class="vertical_bar vertical_text">Inputs</div>
+	<div class="vertical_content changeWithPanel">
+		<div class="panel_title">
+			<h1>Inputs</h1>
+			<div class="div_panel_button">
+				<button id="btn_addinput" type="button"> + add </button>
+				<button id="btn_rcdinput" type="button" disabled="disabled"> record </button>
+			</div>
+		</div>
+		<div id="div_addChoice" class="div_moduleChoice changeWithPanel">
+			<a>Choose your type of input to add:</a></br>
+			<select id="select_addChoice" name="AddChoice">
+				<option>CSV File</option>
+				<option>Time</option>
+				<!--<option>Wheel</option>-->
+				<option>Real-time NYC Traffic Data</option>
+			</select>
+			<button id="add"> add </button>
+			<button class="btn_cancel" type="button"> cancel </button>
+		</div>
+		<ul id="input_modules" class="ul_module_choice">
+			<li class="csv_module">
+				<div>
+					<div class="div_module_title" >
+						<label>Add input channels from a CSV File</label>
+					</div>
+					<div class="div_module_content">
+						<input class="marginbottom_10" type="file"/> <br/>
+						<button class="btn_csvload" type="button">Load</button>
+						<button class="btn_cancel" type="button">Cancel</button>
+					</div>
+				</div>
+			</li>
+			<li class="time_module">
+				<div>
+					<div class="div_module_title">
+						<label>Add input channels from the current date and time</label>
+					</div>
+				<div class="div_module_content">
+					<input type="checkbox" name="year" value="yr"/> Year
+					<input type="checkbox" name="month" value="mo"/> Month
+					<input type="checkbox" name="day" value="dy"/>Day 
+					<br> 
+					<input type="checkbox" name="day" value="dt"/>Day of Week <span>(Mon~Sat is 1~6; Sunday is 0)</span>: 
+					<br>
+					<input type="checkbox" name="hour" value="hr"/>Hour
+					<input type="checkbox" name="minute" value="mi"/>Minute
+					<input type="checkbox" name="second" value="se"/>Second
+					<br>
+					<button class="btn_timeload" type="button">Load</button>
+					<button class="btn_cancel" type="button">Cancel</button>
+				</div>
+				</div>
+			</li>
+			<li class="NYCTraffic_module">
+				<div>
+					<div class="div_module_title">
+						<label>Choose the station(s) you want to import:</label>
+					</div>
+					
+				<div class="div_module_content">
+					<ul id="ul_NYCTraffic_station">
+						<!--<li class="ui-widget-content list_firstelement" value="1">#1</li>
+						<li class="ui-widget-content" value="2">#2</li>
+						<li class="ui-widget-content" value="3">#3</li>
+						<li class="ui-widget-content" value="4">#4</li>
+						<li class="ui-widget-content" value="106">#106</li>
+						<li class="ui-widget-content" value="107">#107</li>
+						<li class="ui-widget-content" value="108">#108</li>
+						<li class="ui-widget-content list_lastelement" value="110">#110</li>-->
+					</ul>
+					<button class="btn_NYCTrafficload" type="button">Load</button>
+					<button class="btn_cancel" type="button">Cancel</button>
+				</div>
+				</div>
+			</li>
+	</ul>
+	<div id="input_channels" class="div_loaded_channel" >
+		<label id="lbl_inputchannels" class="lbl_loaded_channel">No Input Data has been added.</label><br>
+	</div>
+	</div>
+</div>
+<div class="left output panel inactive">
+	<div class="vertical_bar vertical_text">Outputs</div>
+	<div class="vertical_content changeWithPanel">
+		<div class="panel_title">
+			<h1>Outputs</h1>
+			<div class="div_panel_button"><button id="btn_addoutput" type="button"> + add </button></div>
+		</div>
+		
+		<div id="div_chooseOutputType" class="div_moduleChoice changeWithPanel">
+			<a>Choose your type of input to add:</a></br>
+			<select id="select_addOutput" name="AddOutput">
+				<option>Philips Hue</option>
+				<option>Wink</option>
+				<option>DMX Channels</option>
+			</select>
+			<button id="addoutput"> add </button>
+		</div>
+		<ul id="output_modules" class="ul_module_choice">
+		<li class="hue_module">
+			<div>
+			<div  class="div_module_title">
+				<label>Connect to a Hue bridge</label>
+			</div>
+			<div class="div_module_content">
+				<form id="hue_api_selection">
+					<label><input type="radio" name="hue_api" value="hue_int" checked>Local LAN</label>
+					<label><input type="radio" name="hue_api" value="hue_ext">Public Internet</label>
+				</form>
+				<label class="hue_int">Bridge Ip: </label> <input class="hue_int" type="text" name="HueIp" value="192.168.0.101"><br class="hue_int"/>
+				<label class="hue_int">User Name: </label> <input class="hue_int" type="text" name="HueUserName" value="newdeveloper"><br class="hue_int"/>
+				<label class="hue_ext">Bridge ID: </label> <input class="hue_ext" type="text" name="HueBridgeID" value="001788fffe13f724"><br class="hue_ext"/>
+				<label class="hue_ext">Access Token: </label> <input  class="hue_ext" type="password" name="HueAccToken" value="UmYrTk8rN2F1WG9rZXhtWnhZNEFjYUhIUXhQaytGOGRZMGNueUJ5eTNvOD0="><br class="hue_ext"/>
+				<label class="virtual_response"></label>
+				<button id="btn_hueconn" type="button">Connect</button>
+				<button class="btn_outputmodulecancel" type="button">Cancel</button>
+			</div>
+			</div>
+		</li>
+		<li class="wink_module">
+			<div>
+			<div  class="div_module_title">
+				<label>Connect to a Wink Hub</label>
+			</div>
+			<div class="div_module_content">
+				<label>User Name: </label> <input type="text" name="WinkUsnm" value="yunzhi.huang@gmail.com"><br/>
+				<label>Password: </label> <input type="password" name="WinkPswd" value="SSLighting!"><br/>
+				<label>Client ID: </label> <input type="password" name="WinkClientID" value="3e1bee52ad74b9fe21b2d7319cb5a573"><br/>
+				<label>Client Secret: </label> <input type="password" name="WinkClientSecret" value="febec29e4da0ab6527e9588fc8361094"><br/>
+				<label class="virtual_response"></label>
+				<button id="btn_winkconn" type="button">Connect</button>
+				<button class="btn_outputmodulecancel" type="button">Cancel</button>
+			</div>
+			</div>
+		</li>
+	</ul>
+		<div id="output_channels" class="div_loaded_channel">
+			<label id="lbl_outputchannels" class="lbl_loaded_channel">No Output Channel has been added.</label>
+			<br>
+		</div>
+	</div>
+</div>
+<div class="left algorithm panel inactive">
+	<div class="vertical_bar vertical_text">Algorithms</div>
+	<div class="vertical_content changeWithPanel">
+	<div class="panel_title">
+		<h1>Algorithms</h1>
+		<div class="div_panel_button">
+		<div id="div_addalgo" class="div_panel_button">
+			<button type="button" id="btn_addalgo"><span class="fa fa-plus"></span><span class="re"> + add </span></button><br>
+			<button type="button" id="btn_addalgo_utot"><span class="fa fa-bolt"></span><span class="re"> use this on that </span></button><br>
+			<button type="button" id="btn_addalgo_script"><span class="fa fa-code"></span><span class="re"> script </span></button>
+		</div>
+		<div id="div_exealgo" class="div_panel_button"><button id="btn_exeallalgo" type="button"><span class="fa fa-play"></span><span class="re"> execute all </span></button></div>
+		<div id="div_stpalgo" class="div_panel_button"><button id="btn_stpallalgo" type="button"><span class="fa fa-stop"></span><span class="re"> stop all </span></button></div>
+	</div>
+	</div>
+
+	<ul id="algo_logics">
+		<label id="lbl_algologics" class="lbl_loaded_channel">No algorithm has been added.</label>
+		<li class="algo_module algo_module_script algo_preset_1 changeWithPanel">
+			<div>
+				<div class="div_logic">	
+					<textarea class="txt_logic" placeholder="type logic 1 here."></textarea>	
+				</div>
+				<div class="div_config_summary">
+					<span class="config_summary_1">Execute at:</span><br>
+					<span  class="config_summary_2"><b>1-second</b></span><br>
+					<span  class="config_summary_3"><b>interval</b></span><br>
+					<button class="logic_config logic_button" type="button"><span class="fa fa-cog"></span><span class="re"> config </span></button>
+				</div>
+				<div class="div_logic_stop">
+					<button class="channel_delete logic_button" type="button"><span class="fa fa-minus"></span><span class="re"> - delete </span></button><br>
+					<button class="logic_execute logic_button" type="button"><span class="fa fa-play"></span><span class="re"> execute </span></button><br>
+					<button class="logic_stop logic_button" type="button"><span class="fa fa-stop"></span><span class="re"> stop </span></button>
+				</div>
+			</div>
+		</li>
+		<li class="algo_config changeWithPanel">
+			<span class="timing_ctl_txt">execute the algorithm</span><span class="timing_ctl_idx"> 1</span>
+			<select name="timing_ctl" class="timing_ctl">
+     			<option value="at" selected>at:</option>
+     			<option value="when">when:</option>
+     			<option value="to">according to:</option>
+    		</select>
+					
+			<div class="div_timing_opt at_option">
+				<input name="timing_opt" class="timing_opt time_spinner" value="1">
+    			<select name="timing_txt" class="timing_txt">
+     				<option value="se" selected>sec</option>
+     				<option value="mi">min</option>
+     				<option value="hr">hour</option>
+    			</select>
+    			<span class="timing_txt2">interval</span>
+    		</div>
+    		<div class="div_timing_opt when_option">
+    			<select name="timing_txt" class="timing_eventinput">
+     				<option value="" disabled selected>an event</option>
+    			</select>
+    			<span class="timing_txt2">occurs</span>
+    		</div>
+    		<div class="div_timing_opt to_option">
+    			<select name="timing_txt" class="timing_recordedinput" data-bind="options:availableTimeStamps">
+     				<option value="" disabled selected>a recorded time stamp input</option>
+    			</select><br>
+    			<span class="timing_txt3">accelerate at:</span>
+    			<input name="acc_opt" class="acc_opt acc_spinner" value="1">
+    			<span class="timing_txt4"> times as fast as the original time stamps</span>
+    		</div>
+    		<button class="config_ok logic_button" type="button"><span class="fa fa-check"></span><span class="re"> save </span></button>
+			<button class="config_cancel logic_button" type="button"><span class="fa fa-times"></span><span class="re"> cancel </span></button>
+		</li>
+	</ul>
+	</div>
+</div>
+
+<pre><code id="output" style="display:none"></code></pre>
+
+<script>
+var inputData;
+var usedOutputChannels;
+var CSV_values;
+var algorithms;
+var InputNms=[];
+var OutputNms=[];
+var fetched_NYC=[];
+
+//input panel
+	$('#div_addChoice').hide();
+	$('.csv_module').hide();
+	$('.time_module').hide();
+	$('.NYCTraffic_module').hide();
+	$('.channel_parameter').hide();
+	
+//algorithm panel
+	lastFocusedAlgoTxt = $('#algo_logics>li:last-child .txt_logic');
+	
+	$('#div_chooseOutputType').hide();
+	$('#output_modules>li').hide();
+	
+	
+</script>
+</body>
+</html>

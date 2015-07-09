@@ -1,0 +1,28 @@
+/*output*/
+/*output-general*/
+.output{
+	background-color:#009E8E;/*Medium Color*/
+	width:25%;
+	min-width:50px;
+}
+
+.output button,.output submit,.output select{
+	background-color: #006157;/*Dark Color*/
+}
+
+#btn_huecancel,.btn_outputmodulecancel {margin-left:10px;}
+
+/*output-add a module*/
+.output .div_moduleChoice>select{
+	background:#006157 url("../images/arrowdown.gif") no-repeat 98% 50%;}/*Dark Color*/
+
+.output .ul_module_choice{background-color:#6eccc3;}/*light Color*/
+
+/*hue-output module*/
+.output_hue .ip_show .output_wink{font-size:12px;}
+.hue_ext{display:none;}
+.hue_lampname,.wink_lampname{font-weight: 400;padding-left:30px;}
+.ip,.usrnm,.id,.esstoken{display:none;}
+
+/*input-channel list*/
+#output_channels .loaded_channel{background-color:#006157;}/*Dark Color*/
